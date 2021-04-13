@@ -58,7 +58,7 @@ public class EgovWebApplicationInitializer implements WebApplicationInitializer 
 		// Spring ServletContextListener 설정
 		// -------------------------------------------------------------
 		XmlWebApplicationContext rootContext = new XmlWebApplicationContext();
-		//rootContext.setConfigLocations(new String[] { "classpath*:egovframework/spring/**/context-*.xml" });
+//		rootContext.setConfigLocations(new String[] { "classpath:egovframework/spring/**/context-*.xml" });
 		rootContext.setConfigLocations(new String[] { 
 				"classpath:egovframework/spring/context-common.xml"
 				, "classpath:egovframework/spring/context-sqlMap.xml" 
@@ -70,8 +70,9 @@ public class EgovWebApplicationInitializer implements WebApplicationInitializer 
 				, "classpath:egovframework/spring/context-aspect.xml"
 				, "classpath:egovframework/spring/context-mapper.xml"
 				, "classpath:egovframework/spring/context-transaction.xml"
-
+				
 				, "classpath:egovframework/spring/context-validator.xml"
+				, "/WEB-INF/config/egovframework/springmvc/context-validator.xml" //applicationContext에서 WEB-INF 접근 불가
 				
 				});
 		// rootContext.setConfigLocations(new String[] {
@@ -86,7 +87,14 @@ public class EgovWebApplicationInitializer implements WebApplicationInitializer 
 		// Spring ServletContextListener 설정
 		// -------------------------------------------------------------
 		XmlWebApplicationContext xmlWebApplicationContext = new XmlWebApplicationContext();
-		xmlWebApplicationContext.setConfigLocation("/WEB-INF/config/egovframework/springmvc/dispatcher-servlet.xml");
+//		xmlWebApplicationContext.setConfigLocation("/WEB-INF/config/egovframework/springmvc/dispatcher-servlet.xml");
+		xmlWebApplicationContext.setConfigLocations(new String[] { 
+				"/WEB-INF/config/egovframework/springmvc/dispatcher-servlet.xml"
+//				, "/WEB-INF/config/egovframework/springmvc/context-validator.xml"
+//				, "classpath:egovframework/spring/context-validator.xml"
+		
+		});
+				
 		ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher",
 				new DispatcherServlet(xmlWebApplicationContext));
 		// dispatcher.addMapping("*.do");
