@@ -37,6 +37,7 @@ public class EgovWebApplicationInitializer implements WebApplicationInitializer 
 
 	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
+		LOGGER.debug("EgovWebApplicationInitializer START-============================================");
 		// -------------------------------------------------------------
 		// Egov Web ServletContextListener 설정
 		// -------------------------------------------------------------
@@ -57,7 +58,22 @@ public class EgovWebApplicationInitializer implements WebApplicationInitializer 
 		// Spring ServletContextListener 설정
 		// -------------------------------------------------------------
 		XmlWebApplicationContext rootContext = new XmlWebApplicationContext();
-		rootContext.setConfigLocations(new String[] { "classpath*:egovframework/spring/com/**/context-*.xml" });
+		//rootContext.setConfigLocations(new String[] { "classpath*:egovframework/spring/**/context-*.xml" });
+		rootContext.setConfigLocations(new String[] { 
+				"classpath:egovframework/spring/context-common.xml"
+				, "classpath:egovframework/spring/context-sqlMap.xml" 
+				, "classpath:egovframework/spring/context-datasource.xml" 
+				, "classpath:egovframework/spring/context-idgen.xml"
+				
+				, "classpath:egovframework/spring/context-properties.xml" 
+				
+				, "classpath:egovframework/spring/context-aspect.xml"
+				, "classpath:egovframework/spring/context-mapper.xml"
+				, "classpath:egovframework/spring/context-transaction.xml"
+
+				, "classpath:egovframework/spring/context-validator.xml"
+				
+				});
 		// rootContext.setConfigLocations(new String[] {
 		// "classpath*:egovframework/spring/com/context-*.xml","classpath*:egovframework/spring/com/*/context-*.xml"
 		// });
@@ -70,7 +86,7 @@ public class EgovWebApplicationInitializer implements WebApplicationInitializer 
 		// Spring ServletContextListener 설정
 		// -------------------------------------------------------------
 		XmlWebApplicationContext xmlWebApplicationContext = new XmlWebApplicationContext();
-		xmlWebApplicationContext.setConfigLocation("/WEB-INF/config/egovframework/springmvc/egov-com-*.xml");
+		xmlWebApplicationContext.setConfigLocation("/WEB-INF/config/egovframework/springmvc/dispatcher-servlet.xml");
 		ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher",
 				new DispatcherServlet(xmlWebApplicationContext));
 		// dispatcher.addMapping("*.do");
@@ -84,6 +100,14 @@ public class EgovWebApplicationInitializer implements WebApplicationInitializer 
 	    // (<c:out />의 경우 뷰단에서 데이터 출력시 XSS 방지 처리가 됨)
 		FilterRegistration.Dynamic htmlTagFilter = servletContext.addFilter("htmlTagFilter", new HTMLTagFilter());
 		htmlTagFilter.addMappingForUrlPatterns(null, false, "*.do");
+		
+		
+		//-------------------------------------------------------------
+		// Spring RequestContextListener 설정
+		//-------------------------------------------------------------
+		servletContext.addListener(new org.springframework.web.context.request.RequestContextListener());
+		
+		LOGGER.debug("EgovWebApplicationInitializer END-============================================");
 	}
 
 }
