@@ -5,11 +5,13 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 
+import org.egovframework.cmmn.config.context.ContextApp;
 import org.egovframework.cmmn.filter.HTMLTagFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
+import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.context.support.XmlWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
@@ -57,11 +59,13 @@ public class EgovWebApplicationInitializer implements WebApplicationInitializer 
 		// -------------------------------------------------------------
 		// Spring ServletContextListener 설정
 		// -------------------------------------------------------------
-		XmlWebApplicationContext rootContext = new XmlWebApplicationContext();
-		rootContext.setConfigLocations(new String[] { "classpath*:egovframework/spring/**/context-*.xml" });
+		AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
+		//rootContext.setConfigLocations(new String[] { "classpath*:egovframework/spring/**/context-*.xml" });
 		// rootContext.setConfigLocations(new String[] {
 		// "classpath*:egovframework/spring/com/context-*.xml","classpath*:egovframework/spring/com/*/context-*.xml"
 		// });
+		rootContext.register(ContextApp.class);
+		
 		rootContext.refresh();
 		rootContext.start();
 
