@@ -1,7 +1,12 @@
 package org.egovframework.cmmn.config.context;
 
+import javax.sql.DataSource;
+
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
 /**
  * @ClassName : ContextApp.java 
@@ -30,9 +35,15 @@ import org.springframework.context.annotation.ImportResource;
 		, "classpath:egovframework/spring/context-aspect.xml"
 		, "classpath:egovframework/spring/context-mapper.xml"
 		, "classpath:egovframework/spring/context-transaction.xml"
-		, "classpath:egovframework/spring/context-datasource.xml"
+//		, "classpath:egovframework/spring/context-datasource.xml"
 		, "classpath:egovframework/spring/context-validator.xml"
 })
 public class ContextApp {
-
+	@Bean
+	public DataSource dataSource() {
+		return new EmbeddedDatabaseBuilder()
+				.setType(EmbeddedDatabaseType.HSQL)
+				.addScript("classpath:/db/sampledb.sql")
+				.build();
+	}
 }
