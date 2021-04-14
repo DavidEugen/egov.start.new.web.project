@@ -77,8 +77,8 @@ public class EgovWebApplicationInitializer implements WebApplicationInitializer 
 				
 		ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher",
 				new DispatcherServlet(xmlWebApplicationContext));
-		// dispatcher.addMapping("*.do");
-		dispatcher.addMapping("/"); // Facebook OAuth 사용시 변경
+		dispatcher.addMapping("*.do");
+		//dispatcher.addMapping("/"); // Facebook OAuth 사용시 변경
 		dispatcher.setLoadOnStartup(1);
 
 		//-------------------------------------------------------------
