@@ -53,7 +53,6 @@ public class EgovWebServletContextListener implements ServletContextListener {
 					EgovProperties.getProperty("Globals.DbType") + "," + EgovProperties.getProperty("Globals.Auth"));
 			LOGGER.debug("Setting spring.profiles.active>" + System.getProperty("spring.profiles.active"));
 			LOGGER.debug("===========================END   EgovServletContextLoad END ===========");
-			// 2017.03.03 조성원 시큐어코딩(ES)-오류 메시지를 통한 정보노출[CWE-209]
 		} catch (IllegalArgumentException e) {
 			LOGGER.error("[IllegalArgumentException] Try/Catch...usingParameters Runing : " + e.getMessage());
 		} catch (Exception e) {
