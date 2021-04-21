@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 
 import org.egovframework.cmmn.config.context.ContextApp;
+import org.egovframework.cmmn.config.context.ContextAppAspect;
 import org.egovframework.cmmn.config.context.ContextAppDatasource;
 import org.egovframework.cmmn.filter.HTMLTagFilter;
 import org.slf4j.Logger;
@@ -65,8 +66,11 @@ public class EgovWebApplicationInitializer implements WebApplicationInitializer 
 		// rootContext.setConfigLocations(new String[] {
 		// "classpath*:egovframework/spring/com/context-*.xml","classpath*:egovframework/spring/com/*/context-*.xml"
 		// });
-		rootContext.register(ContextApp.class);
-		rootContext.register(ContextAppDatasource.class);
+		rootContext.register(
+				ContextApp.class
+				, ContextAppDatasource.class
+				, ContextAppAspect.class
+		);
 		
 		rootContext.refresh();
 		rootContext.start();
