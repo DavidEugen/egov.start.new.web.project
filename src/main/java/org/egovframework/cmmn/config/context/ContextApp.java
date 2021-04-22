@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 
 /**
- * @ClassName : ContextApp.java 
+ * @ClassName : ContextApp.java
  * @Description :
  *
  * @author : 윤주호
@@ -24,15 +24,15 @@ import org.springframework.context.annotation.ImportResource;
 @Configuration
 @ImportResource(value= {
 //		"classpath:egovframework/spring/context-common.xml" ,
-		"classpath:egovframework/spring/context-sqlMap.xml",
+//		"classpath:egovframework/spring/context-sqlMap.xml",
 		"classpath:egovframework/spring/context-idgen.xml",
 		"classpath:egovframework/spring/context-properties.xml",
 //		"classpath:egovframework/spring/context-aspect.xml",
-		"classpath:egovframework/spring/context-mapper.xml",
+//		"classpath:egovframework/spring/context-mapper.xml",
 		"classpath:egovframework/spring/context-transaction.xml",
 //		"classpath:egovframework/spring/context-datasource.xml",
 		"classpath:egovframework/spring/context-validator.xml"
 })
 public class ContextApp {
-	
+
 }

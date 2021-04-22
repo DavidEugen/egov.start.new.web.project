@@ -9,6 +9,8 @@ import org.egovframework.cmmn.config.context.ContextApp;
 import org.egovframework.cmmn.config.context.ContextAppAspect;
 import org.egovframework.cmmn.config.context.ContextAppCommon;
 import org.egovframework.cmmn.config.context.ContextAppDatasource;
+import org.egovframework.cmmn.config.context.ContextAppMapper;
+import org.egovframework.cmmn.config.context.ContextAppSqlMap;
 import org.egovframework.cmmn.filter.HTMLTagFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,23 +73,25 @@ public class EgovWebApplicationInitializer implements WebApplicationInitializer 
 				ContextApp.class,
 				ContextAppDatasource.class,
 				ContextAppAspect.class,
-				ContextAppCommon.class
-				
+				ContextAppCommon.class,
+				ContextAppSqlMap.class,
+				ContextAppMapper.class
+
 		);
-		
+
 		rootContext.refresh();
 		rootContext.start();
 
 		servletContext.addListener(new ContextLoaderListener(rootContext));
-		
+
 		// -------------------------------------------------------------
 		// Spring ServletContextListener 설정
 		// -------------------------------------------------------------
 		XmlWebApplicationContext xmlWebApplicationContext = new XmlWebApplicationContext();
-		xmlWebApplicationContext.setConfigLocations(new String[] { 
+		xmlWebApplicationContext.setConfigLocations(new String[] {
 				"/WEB-INF/config/egovframework/springmvc/dispatcher-servlet.xml"
 		});
-				
+
 		ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher",
 				new DispatcherServlet(xmlWebApplicationContext));
 		dispatcher.addMapping("*.do");
@@ -96,18 +100,18 @@ public class EgovWebApplicationInitializer implements WebApplicationInitializer 
 
 		//-------------------------------------------------------------
 	    // HTMLTagFilter의 경우는 파라미터에 대하여 XSS 오류 방지를 위한 변환을 처리합니다.
-		//-------------------------------------------------------------	
+		//-------------------------------------------------------------
 	    // HTMLTagFIlter의 경우는 JSP의 <c:out /> 등을 사용하지 못하는 특수한 상황에서 사용하시면 됩니다.
 	    // (<c:out />의 경우 뷰단에서 데이터 출력시 XSS 방지 처리가 됨)
 		FilterRegistration.Dynamic htmlTagFilter = servletContext.addFilter("htmlTagFilter", new HTMLTagFilter());
 		htmlTagFilter.addMappingForUrlPatterns(null, false, "*.do");
-		
-		
+
+
 		//-------------------------------------------------------------
 		// Spring RequestContextListener 설정
 		//-------------------------------------------------------------
 		servletContext.addListener(new org.springframework.web.context.request.RequestContextListener());
-		
+
 		LOGGER.debug("EgovWebApplicationInitializer END-============================================");
 	}
 
