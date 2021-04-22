@@ -13,7 +13,7 @@ import egovframework.rte.fdl.cmmn.trace.handler.DefaultTraceHandler;
 import egovframework.rte.fdl.cmmn.trace.manager.DefaultTraceHandleManager;
 
 /**
- * @ClassName : ContextAppCommon.java 
+ * @ClassName : ContextAppCommon.java
  * @Description :
  *
  * @author : 윤주호
@@ -34,8 +34,7 @@ import egovframework.rte.fdl.cmmn.trace.manager.DefaultTraceHandleManager;
 		basePackages="egovframework",
 		excludeFilters = {
 				@ComponentScan.Filter(type=FilterType.ANNOTATION, value=Controller.class),
-				@ComponentScan.Filter(type=FilterType.ANNOTATION, value=Configuration.class) //useDefaultFilters속성 default 값 true
-				
+				@ComponentScan.Filter(type=FilterType.ANNOTATION, value=Configuration.class) //useDefaultFilters 속성의 default 값 : true
 		}
 )
 public class ContextAppCommon {
@@ -51,30 +50,30 @@ public class ContextAppCommon {
 		reloadableResourceBundleMessageSource.setCacheSeconds(60);
 		return reloadableResourceBundleMessageSource;
 	}
-	
+
 	@Bean
 	public LeaveaTrace leaveaTrace(DefaultTraceHandleManager traceHandlerServices) {
 		LeaveaTrace leaveaTrace = new LeaveaTrace();
 		leaveaTrace.setTraceHandlerServices(new DefaultTraceHandleManager[] {traceHandlerServices});
 		return leaveaTrace;
 	}
-	
+
 	@Bean
 	public DefaultTraceHandleManager traceHandlerService(AntPathMatcher antPathMater, DefaultTraceHandler defaultTraceHandler) {
 		DefaultTraceHandleManager defaultTraceHandleManager = new DefaultTraceHandleManager();
 		defaultTraceHandleManager.setReqExpMatcher(antPathMater);
 		defaultTraceHandleManager.setPatterns(new String[] {"*"});
 		defaultTraceHandleManager.setHandlers(new DefaultTraceHandler [] {defaultTraceHandler});
-		
+
 		return defaultTraceHandleManager;
 	}
-	
+
 	@Bean
 	public AntPathMatcher antPathMater() {
 		AntPathMatcher antPathMater = new AntPathMatcher();
 		return antPathMater;
 	}
-	
+
 	@Bean
 	public DefaultTraceHandler defaultTraceHandler() {
 		DefaultTraceHandler defaultTraceHandler = new DefaultTraceHandler();
