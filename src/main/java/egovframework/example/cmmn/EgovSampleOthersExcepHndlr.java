@@ -30,10 +30,10 @@
  */
 package egovframework.example.cmmn;
 
-import egovframework.rte.fdl.cmmn.exception.handler.ExceptionHandler;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import egovframework.rte.fdl.cmmn.exception.handler.ExceptionHandler;
 
 /**
  * @Class Name : EgovSampleOthersExcepHndlr.java
@@ -61,8 +61,10 @@ public class EgovSampleOthersExcepHndlr implements ExceptionHandler {
 	* @see 개발프레임웍크 실행환경 개발팀
 	*/
 	@Override
-	public void occur(Exception exception, String packageName) {
-		LOGGER.debug(" EgovServiceExceptionHandler run...............");
+	public void occur(Exception ex, String packageName) {
+		LOGGER.debug(" EgovSampleOthersExcepHndlr run............");
+		LOGGER.debug(packageName );
+		ex.printStackTrace();
 	}
 
 }
