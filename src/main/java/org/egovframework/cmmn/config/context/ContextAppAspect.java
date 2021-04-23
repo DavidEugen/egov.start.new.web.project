@@ -13,7 +13,7 @@ import egovframework.rte.fdl.cmmn.exception.handler.ExceptionHandler;
 import egovframework.rte.fdl.cmmn.exception.manager.DefaultExceptionHandleManager;
 
 /**
- * @ClassName : ContextAppAspect.java 
+ * @ClassName : ContextAppAspect.java
  * @Description :
  *
  * @author : 윤주호
@@ -48,30 +48,30 @@ public class ContextAppAspect {
 		exceptionTransfer.setExceptionHandlerService(new DefaultExceptionHandleManager[] {defaultExceptionHandlerManager, otherExceptionHandlerManager });
 		return exceptionTransfer;
 	}
-	
+
 	@Bean
-	public DefaultExceptionHandleManager defaultExceptionHandlerManager(AntPathMatcher antPathMatcher, EgovSampleExcepHndlr egovHandler) {
-		DefaultExceptionHandleManager defaultExceptionHandleManager = new DefaultExceptionHandleManager(); 
-		defaultExceptionHandleManager.setReqExpMatcher(antPathMatcher);
+	public DefaultExceptionHandleManager defaultExceptionHandlerManager(AntPathMatcher antPathMater, EgovSampleExcepHndlr egovHandler) {
+		DefaultExceptionHandleManager defaultExceptionHandleManager = new DefaultExceptionHandleManager();
+		defaultExceptionHandleManager.setReqExpMatcher(antPathMater);
 		defaultExceptionHandleManager.setPatterns(new String[] {"**service.impl.*"});
 		defaultExceptionHandleManager.setHandlers(new ExceptionHandler[] {egovHandler});
-		return defaultExceptionHandleManager; 
+		return defaultExceptionHandleManager;
 	}
 	@Bean
-	public DefaultExceptionHandleManager otherExceptionHandlerManager(AntPathMatcher antPathMatcher, EgovSampleOthersExcepHndlr otherHandler) {
-		DefaultExceptionHandleManager otherExceptionHandleManager = new DefaultExceptionHandleManager(); 
-		otherExceptionHandleManager.setReqExpMatcher(antPathMatcher);
+	public DefaultExceptionHandleManager otherExceptionHandlerManager(AntPathMatcher antPathMater, EgovSampleOthersExcepHndlr otherHandler) {
+		DefaultExceptionHandleManager otherExceptionHandleManager = new DefaultExceptionHandleManager();
+		otherExceptionHandleManager.setReqExpMatcher(antPathMater);
 		otherExceptionHandleManager.setPatterns(new String[] {"**service.impl.*"});
 		otherExceptionHandleManager.setHandlers(new ExceptionHandler[] {otherHandler});
-		return otherExceptionHandleManager; 
+		return otherExceptionHandleManager;
 	}
-	
+
 	@Bean
 	public EgovSampleExcepHndlr egovHandler() {
 		EgovSampleExcepHndlr egovSampleExcepHndlr = new EgovSampleExcepHndlr();
 		return egovSampleExcepHndlr;
 	}
-	
+
 	@Bean
 	public EgovSampleOthersExcepHndlr otherHandler() {
 		return new EgovSampleOthersExcepHndlr();
