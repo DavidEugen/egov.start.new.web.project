@@ -84,6 +84,13 @@ public class EgovSampleServiceImpl extends EgovAbstractServiceImpl implements Eg
 		LOGGER.debug(vo.toString());
 
 		sampleDAO.insertSample(vo);
+
+		if("testTx".contentEquals(vo.getRegUser())) {
+			int a = 1/0;
+			SampleVO resultVO = sampleDAO.selectSample(vo);
+			LOGGER.debug(resultVO.toString());
+		}
+
 		return id;
 	}
 
