@@ -10,8 +10,8 @@ import org.egovframework.cmmn.config.context.ContextAppAspect;
 import org.egovframework.cmmn.config.context.ContextAppCommon;
 import org.egovframework.cmmn.config.context.ContextAppDatasource;
 import org.egovframework.cmmn.config.context.ContextAppIdgen;
-import org.egovframework.cmmn.config.context.ContextAppIdgen;
 import org.egovframework.cmmn.config.context.ContextAppMapper;
+import org.egovframework.cmmn.config.context.ContextAppProperties;
 import org.egovframework.cmmn.config.context.ContextAppSqlMap;
 import org.egovframework.cmmn.config.context.ContextAppTransaction;
 import org.egovframework.cmmn.filter.HTMLTagFilter;
@@ -80,7 +80,8 @@ public class EgovWebApplicationInitializer implements WebApplicationInitializer 
 				ContextAppSqlMap.class,
 				ContextAppMapper.class,
 				ContextAppTransaction.class,
-				ContextAppIdgen.class
+				ContextAppIdgen.class,
+				ContextAppProperties.class
 
 		);
 
