@@ -42,23 +42,27 @@ public class ContextAppAspect {
 
 	@Bean
 	public ExceptionTransfer exceptionTransfer(
-			@Qualifier("defaultExceptionHandlerManager") DefaultExceptionHandleManager defaultExceptionHandlerManager
-			, @Qualifier("otherExceptionHandlerManager") DefaultExceptionHandleManager otherExceptionHandlerManager) {
+		@Qualifier("defaultExceptionHandlerManager") DefaultExceptionHandleManager defaultExceptionHandlerManager,
+		@Qualifier("otherExceptionHandlerManager") DefaultExceptionHandleManager otherExceptionHandlerManager) {
 		ExceptionTransfer exceptionTransfer = new ExceptionTransfer();
-		exceptionTransfer.setExceptionHandlerService(new DefaultExceptionHandleManager[] {defaultExceptionHandlerManager, otherExceptionHandlerManager });
+		exceptionTransfer.setExceptionHandlerService(
+			new DefaultExceptionHandleManager[] {defaultExceptionHandlerManager, otherExceptionHandlerManager});
 		return exceptionTransfer;
 	}
 
 	@Bean
-	public DefaultExceptionHandleManager defaultExceptionHandlerManager(AntPathMatcher antPathMater, EgovSampleExcepHndlr egovHandler) {
+	public DefaultExceptionHandleManager defaultExceptionHandlerManager(AntPathMatcher antPathMater,
+		EgovSampleExcepHndlr egovHandler) {
 		DefaultExceptionHandleManager defaultExceptionHandleManager = new DefaultExceptionHandleManager();
 		defaultExceptionHandleManager.setReqExpMatcher(antPathMater);
 		defaultExceptionHandleManager.setPatterns(new String[] {"**service.impl.*"});
 		defaultExceptionHandleManager.setHandlers(new ExceptionHandler[] {egovHandler});
 		return defaultExceptionHandleManager;
 	}
+
 	@Bean
-	public DefaultExceptionHandleManager otherExceptionHandlerManager(AntPathMatcher antPathMater, EgovSampleOthersExcepHndlr otherHandler) {
+	public DefaultExceptionHandleManager otherExceptionHandlerManager(AntPathMatcher antPathMater,
+		EgovSampleOthersExcepHndlr otherHandler) {
 		DefaultExceptionHandleManager otherExceptionHandleManager = new DefaultExceptionHandleManager();
 		otherExceptionHandleManager.setReqExpMatcher(antPathMater);
 		otherExceptionHandleManager.setPatterns(new String[] {"**service.impl.*"});

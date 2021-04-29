@@ -9,6 +9,8 @@ import org.egovframework.cmmn.config.context.ContextApp;
 import org.egovframework.cmmn.config.context.ContextAppAspect;
 import org.egovframework.cmmn.config.context.ContextAppCommon;
 import org.egovframework.cmmn.config.context.ContextAppDatasource;
+import org.egovframework.cmmn.config.context.ContextAppIdgen;
+import org.egovframework.cmmn.config.context.ContextAppIdgen;
 import org.egovframework.cmmn.config.context.ContextAppMapper;
 import org.egovframework.cmmn.config.context.ContextAppSqlMap;
 import org.egovframework.cmmn.config.context.ContextAppTransaction;
@@ -77,7 +79,8 @@ public class EgovWebApplicationInitializer implements WebApplicationInitializer 
 				ContextAppCommon.class,
 				ContextAppSqlMap.class,
 				ContextAppMapper.class,
-				ContextAppTransaction.class
+				ContextAppTransaction.class,
+				ContextAppIdgen.class
 
 		);
 
