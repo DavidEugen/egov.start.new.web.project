@@ -14,6 +14,7 @@ import org.egovframework.cmmn.config.context.ContextAppMapper;
 import org.egovframework.cmmn.config.context.ContextAppProperties;
 import org.egovframework.cmmn.config.context.ContextAppSqlMap;
 import org.egovframework.cmmn.config.context.ContextAppTransaction;
+import org.egovframework.cmmn.config.context.ContextAppValidator;
 import org.egovframework.cmmn.filter.HTMLTagFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -81,7 +82,8 @@ public class EgovWebApplicationInitializer implements WebApplicationInitializer 
 				ContextAppMapper.class,
 				ContextAppTransaction.class,
 				ContextAppIdgen.class,
-				ContextAppProperties.class
+				ContextAppProperties.class,
+				ContextAppValidator.class
 
 		);
 

@@ -31,7 +31,7 @@ import org.springframework.context.annotation.ImportResource;
 //		"classpath:egovframework/spring/context-mapper.xml",
 //		"classpath:egovframework/spring/context-transaction.xml",
 //		"classpath:egovframework/spring/context-datasource.xml",
-		"classpath:egovframework/spring/context-validator.xml"
+//		"classpath:egovframework/spring/context-validator.xml"
 })
 public class ContextApp {
 

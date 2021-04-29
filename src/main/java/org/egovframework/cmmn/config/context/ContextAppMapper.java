@@ -45,6 +45,7 @@ public class ContextAppMapper {
 		sqlSessionFactoryBean.setDataSource(dataSource);
 
 		PathMatchingResourcePatternResolver pathMatchingResourcePatternResolver = new PathMatchingResourcePatternResolver();
+
 		sqlSessionFactoryBean.setConfigLocation(pathMatchingResourcePatternResolver
 			.getResource("classpath:/egovframework/sqlmap/example/sql-mapper-config.xml"));
 		sqlSessionFactoryBean.setMapperLocations(
