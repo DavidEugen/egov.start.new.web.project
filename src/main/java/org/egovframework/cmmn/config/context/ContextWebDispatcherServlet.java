@@ -26,28 +26,15 @@ public class ContextWebDispatcherServlet extends WebMvcConfigurationSupport {
 
 	@Bean
 	@Override
-	public RequestMappingHandlerAdapter requestMappingHandlerAdapter() { //@EnableWebMvc 어노테이션을 붙이지 않고
-		//RequestMappingHandlerAdapter requestMappingHandlerAdapter = new RequestMappingHandlerAdapter();
+	public RequestMappingHandlerAdapter requestMappingHandlerAdapter() {
 		RequestMappingHandlerAdapter requestMappingHandlerAdapter = super.requestMappingHandlerAdapter();
 		requestMappingHandlerAdapter.setWebBindingInitializer(new EgovBindingInitializer());
 		return requestMappingHandlerAdapter;
 	}
 
-	//TODO 삭제하기
-	// 이렇게 등록이 될 것 같으나  그러면 Interceptor가 중복으로 등록이 된다.(
-	// WebMvcConfigurationSupport 에서는 Interceptor를 추가할 수 있는 메소드를 따로 빼 놨다.
-//	@Bean
-//	@Override
-//	public RequestMappingHandlerMapping requestMappingHandlerMapping() {
-//		RequestMappingHandlerMapping requestMappingHandlerMapping = super.requestMappingHandlerMapping();
-//		requestMappingHandlerMapping.setInterceptors(localeChangeInterceptor());
-//		return requestMappingHandlerMapping;
-//	}
-
 	@Bean
 	@Override
 	protected void addInterceptors(InterceptorRegistry registry) {
-		//super.addInterceptors(registry);
 		registry.addInterceptor(localeChangeInterceptor());
 	}
 
