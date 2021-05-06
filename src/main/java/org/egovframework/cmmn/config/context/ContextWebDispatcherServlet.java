@@ -1,5 +1,7 @@
 package org.egovframework.cmmn.config.context;
 
+import java.util.Properties;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
@@ -22,8 +25,13 @@ import egovframework.example.cmmn.web.EgovBindingInitializer;
 })
 public class ContextWebDispatcherServlet extends WebMvcConfigurationSupport {
 
-	final static String LOCALE_CHANGE_PRAM_NAME = "language";
+	final static String INTERCEPTOR_LOCALE_CHANGE_PRAM_NAME = "language";
 
+	final static String RESOLVER_DEFAULT_ERROR_VIEW = "cmm/egovError";
+
+	// =====================================================================
+	// RequestMappingHandlerAdapter 설정
+	// =====================================================================
 	@Bean
 	@Override
 	public RequestMappingHandlerAdapter requestMappingHandlerAdapter() {
@@ -32,6 +40,12 @@ public class ContextWebDispatcherServlet extends WebMvcConfigurationSupport {
 		return requestMappingHandlerAdapter;
 	}
 
+	// =====================================================================
+	// RequestMappingHandlerMapping 설정
+	// =====================================================================
+	// -------------------------------------------------------------
+	// RequestMappingHandlerMapping 설정 - Interceptor 추가 - localeChangeInterceptor
+	// -------------------------------------------------------------
 	@Bean
 	@Override
 	protected void addInterceptors(InterceptorRegistry registry) {
@@ -41,21 +55,45 @@ public class ContextWebDispatcherServlet extends WebMvcConfigurationSupport {
 	@Bean
 	public LocaleChangeInterceptor localeChangeInterceptor() {
 		LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
-		localeChangeInterceptor.setParamName(LOCALE_CHANGE_PRAM_NAME);
+		localeChangeInterceptor.setParamName(INTERCEPTOR_LOCALE_CHANGE_PRAM_NAME);
 		return localeChangeInterceptor;
 	}
 
+	// =====================================================================
+	// Resolver 설정
+	// =====================================================================
+	// -------------------------------------------------------------
+	// localeResolver 설정 - SessionLocaleResolver / CookieLocaleResolver 중 선택
+	// -------------------------------------------------------------
 	@Bean
 	public SessionLocaleResolver localeResolver() {
 		SessionLocaleResolver sessionLocaleResolver = new SessionLocaleResolver();
-		return sessionLocaleResolver ;
+		return sessionLocaleResolver;
 
 	}
 	//	쿠키를 이용한 Locale 이용시 사용
-//	@Bean
-//	public CookieLocaleResolver localeResolver(){
-//		CookieLocaleResolver cookieLocaleResolver = new CookieLocaleResolver();
-//		return cookieLocaleResolver;
-//	}
+	//	@Bean
+	//	public CookieLocaleResolver localeResolver(){
+	//		CookieLocaleResolver cookieLocaleResolver = new CookieLocaleResolver();
+	//		return cookieLocaleResolver;
+	//	}
+
+	// -------------------------------------------------------------
+	// HandlerExceptionResolver 설정
+	// -------------------------------------------------------------
+	@Bean
+	public SimpleMappingExceptionResolver simpleMappingExceptionResolver() {
+		SimpleMappingExceptionResolver simpleMappingExceptionResolver = new SimpleMappingExceptionResolver();
+		simpleMappingExceptionResolver.setDefaultErrorView(RESOLVER_DEFAULT_ERROR_VIEW);
+
+		Properties mappings = new Properties();
+		mappings.setProperty("org.springframework.dao.DataAccessException", "cmmn/dataAccessFailure");
+		mappings.setProperty("org.springframework.transaction.TransactionException", "cmmn/transactionFailure");
+		mappings.setProperty("egovframework.rte.fdl.cmmn.exception.EgovBizException", "cmmn/egovError");
+		mappings.setProperty("org.springframework.security.AccessDeniedException", "cmmn/egovError");
+		simpleMappingExceptionResolver.setExceptionMappings(mappings);
+
+		return simpleMappingExceptionResolver;
+	}// 이렇게 될것 같으나...
 
 }
