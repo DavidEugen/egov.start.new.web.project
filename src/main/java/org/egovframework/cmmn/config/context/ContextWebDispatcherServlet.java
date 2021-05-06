@@ -1,5 +1,6 @@
 package org.egovframework.cmmn.config.context;
 
+import java.util.List;
 import java.util.Properties;
 
 import org.springframework.context.annotation.Bean;
@@ -8,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
@@ -81,9 +83,11 @@ public class ContextWebDispatcherServlet extends WebMvcConfigurationSupport {
 	// -------------------------------------------------------------
 	// HandlerExceptionResolver 설정
 	// -------------------------------------------------------------
+	@Override
 	@Bean
-	public SimpleMappingExceptionResolver simpleMappingExceptionResolver() {
+	public void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> exceptionResolvers) {
 		SimpleMappingExceptionResolver simpleMappingExceptionResolver = new SimpleMappingExceptionResolver();
+
 		simpleMappingExceptionResolver.setDefaultErrorView(RESOLVER_DEFAULT_ERROR_VIEW);
 
 		Properties mappings = new Properties();
@@ -91,9 +95,10 @@ public class ContextWebDispatcherServlet extends WebMvcConfigurationSupport {
 		mappings.setProperty("org.springframework.transaction.TransactionException", "cmmn/transactionFailure");
 		mappings.setProperty("egovframework.rte.fdl.cmmn.exception.EgovBizException", "cmmn/egovError");
 		mappings.setProperty("org.springframework.security.AccessDeniedException", "cmmn/egovError");
+
 		simpleMappingExceptionResolver.setExceptionMappings(mappings);
 
-		return simpleMappingExceptionResolver;
-	}// 이렇게 될것 같으나...
+		exceptionResolvers.add(simpleMappingExceptionResolver);
+	}// 이렇게 된다.
 
 }
