@@ -30,23 +30,19 @@ import egovframework.rte.fdl.cmmn.trace.manager.DefaultTraceHandleManager;
  *
  */
 @Configuration
-@ComponentScan(
-		basePackages="egovframework",
-		excludeFilters = {
-				@ComponentScan.Filter(type=FilterType.ANNOTATION, value=Controller.class),
-				@ComponentScan.Filter(type=FilterType.ANNOTATION, value=Configuration.class) //useDefaultFilters 속성의 default 값 : true
-		}
-)
+@ComponentScan(basePackages = "egovframework", excludeFilters = {
+	@ComponentScan.Filter(type = FilterType.ANNOTATION, value = Controller.class),
+	@ComponentScan.Filter(type = FilterType.ANNOTATION, value = Configuration.class) //useDefaultFilters 속성의 default 값 : true
+})
 public class ContextAppCommon {
 
 	@Bean
 	public ReloadableResourceBundleMessageSource messageSource() {
 		ReloadableResourceBundleMessageSource reloadableResourceBundleMessageSource = new ReloadableResourceBundleMessageSource();
 		reloadableResourceBundleMessageSource.setBasenames(
-				"classpath:/egovframework/message/message-common",
-				"classpath:/egovframework/rte/fdl/idgnr/messages/idgnr",
-				"classpath:/egovframework/rte/fdl/property/messages/properties"
-		);
+			"classpath:/egovframework/message/message-common",
+			"classpath:/egovframework/rte/fdl/idgnr/messages/idgnr",
+			"classpath:/egovframework/rte/fdl/property/messages/properties");
 		reloadableResourceBundleMessageSource.setCacheSeconds(60);
 		return reloadableResourceBundleMessageSource;
 	}
@@ -59,11 +55,12 @@ public class ContextAppCommon {
 	}
 
 	@Bean
-	public DefaultTraceHandleManager traceHandlerService(AntPathMatcher antPathMater, DefaultTraceHandler defaultTraceHandler) {
+	public DefaultTraceHandleManager traceHandlerService(AntPathMatcher antPathMater,
+		DefaultTraceHandler defaultTraceHandler) {
 		DefaultTraceHandleManager defaultTraceHandleManager = new DefaultTraceHandleManager();
 		defaultTraceHandleManager.setReqExpMatcher(antPathMater);
 		defaultTraceHandleManager.setPatterns(new String[] {"*"});
-		defaultTraceHandleManager.setHandlers(new DefaultTraceHandler [] {defaultTraceHandler});
+		defaultTraceHandleManager.setHandlers(new DefaultTraceHandler[] {defaultTraceHandler});
 
 		return defaultTraceHandleManager;
 	}
