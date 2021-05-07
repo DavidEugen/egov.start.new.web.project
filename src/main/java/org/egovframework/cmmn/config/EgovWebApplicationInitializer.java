@@ -58,7 +58,7 @@ public class EgovWebApplicationInitializer implements WebApplicationInitializer 
 		// Spring CharacterEncodingFilter 설정
 		// -------------------------------------------------------------
 		FilterRegistration.Dynamic characterEncoding = servletContext.addFilter("encodingFilter",
-				new org.springframework.web.filter.CharacterEncodingFilter());
+			new org.springframework.web.filter.CharacterEncodingFilter());
 		characterEncoding.setInitParameter("encoding", "UTF-8");
 		characterEncoding.setInitParameter("forceEncoding", "true");
 		characterEncoding.addMappingForUrlPatterns(null, false, "*.do");
@@ -74,19 +74,16 @@ public class EgovWebApplicationInitializer implements WebApplicationInitializer 
 		// "classpath*:egovframework/spring/com/context-*.xml","classpath*:egovframework/spring/com/*/context-*.xml"
 		// });
 		rootContext.register(
-				ContextApp.class,
-				ContextAppDatasource.class,
-				ContextAppAspect.class,
-				ContextAppCommon.class,
-				ContextAppSqlMap.class,
-				ContextAppMapper.class,
-				ContextAppTransaction.class,
-				ContextAppIdgen.class,
-				ContextAppProperties.class,
-				ContextAppValidator.class
-
-
-		);
+			ContextApp.class,
+			ContextAppDatasource.class,
+			ContextAppAspect.class,
+			ContextAppCommon.class,
+			ContextAppSqlMap.class,
+			ContextAppMapper.class,
+			ContextAppTransaction.class,
+			ContextAppIdgen.class,
+			ContextAppProperties.class,
+			ContextAppValidator.class);
 
 		rootContext.refresh();
 		rootContext.start();
@@ -98,23 +95,21 @@ public class EgovWebApplicationInitializer implements WebApplicationInitializer 
 		// -------------------------------------------------------------
 		AnnotationConfigWebApplicationContext webApplicationContext = new AnnotationConfigWebApplicationContext();
 		webApplicationContext.register(
-			ContextWebDispatcherServlet.class
-		);
+			ContextWebDispatcherServlet.class);
 
 		ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher",
-				new DispatcherServlet(webApplicationContext));
+			new DispatcherServlet(webApplicationContext));
 		dispatcher.addMapping("*.do");
 		//dispatcher.addMapping("/"); // Facebook OAuth 사용시 변경
 		dispatcher.setLoadOnStartup(1);
 
 		//-------------------------------------------------------------
-	    // HTMLTagFilter의 경우는 파라미터에 대하여 XSS 오류 방지를 위한 변환을 처리합니다.
+		// HTMLTagFilter의 경우는 파라미터에 대하여 XSS 오류 방지를 위한 변환을 처리합니다.
 		//-------------------------------------------------------------
-	    // HTMLTagFIlter의 경우는 JSP의 <c:out /> 등을 사용하지 못하는 특수한 상황에서 사용하시면 됩니다.
-	    // (<c:out />의 경우 뷰단에서 데이터 출력시 XSS 방지 처리가 됨)
+		// HTMLTagFIlter의 경우는 JSP의 <c:out /> 등을 사용하지 못하는 특수한 상황에서 사용하시면 됩니다.
+		// (<c:out />의 경우 뷰단에서 데이터 출력시 XSS 방지 처리가 됨)
 		FilterRegistration.Dynamic htmlTagFilter = servletContext.addFilter("htmlTagFilter", new HTMLTagFilter());
 		htmlTagFilter.addMappingForUrlPatterns(null, false, "*.do");
-
 
 		//-------------------------------------------------------------
 		// Spring RequestContextListener 설정
