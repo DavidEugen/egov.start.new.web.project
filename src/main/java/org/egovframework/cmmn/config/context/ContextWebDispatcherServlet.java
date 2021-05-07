@@ -84,8 +84,7 @@ public class ContextWebDispatcherServlet extends WebMvcConfigurationSupport {
 	// HandlerExceptionResolver 설정
 	// -------------------------------------------------------------
 	@Override
-	@Bean
-	public void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> exceptionResolvers) {
+	protected void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> exceptionResolvers) {
 		SimpleMappingExceptionResolver simpleMappingExceptionResolver = new SimpleMappingExceptionResolver();
 
 		simpleMappingExceptionResolver.setDefaultErrorView(RESOLVER_DEFAULT_ERROR_VIEW);
@@ -99,6 +98,5 @@ public class ContextWebDispatcherServlet extends WebMvcConfigurationSupport {
 		simpleMappingExceptionResolver.setExceptionMappings(mappings);
 
 		exceptionResolvers.add(simpleMappingExceptionResolver);
-	}// 이렇게 된다.
-
+	}
 }

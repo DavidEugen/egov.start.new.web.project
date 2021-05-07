@@ -38,6 +38,7 @@
         <property name="paramName" value="language" />
     </bean>
  -->
+ <!-- 
     <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
         <property name="defaultErrorView" value="cmmn/egovError"/>
         <property name="exceptionMappings">
@@ -49,6 +50,7 @@
             </props>
         </property>
     </bean>
+-->
 
     <bean class="org.springframework.web.servlet.view.UrlBasedViewResolver" p:order="1"
 	    p:viewClass="org.springframework.web.servlet.view.JstlView"
