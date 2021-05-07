@@ -22,7 +22,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
-import org.springframework.web.context.support.XmlWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
 /**
@@ -84,8 +83,8 @@ public class EgovWebApplicationInitializer implements WebApplicationInitializer 
 				ContextAppTransaction.class,
 				ContextAppIdgen.class,
 				ContextAppProperties.class,
-				ContextAppValidator.class,
-				ContextWebDispatcherServlet.class
+				ContextAppValidator.class
+
 
 		);
 
@@ -97,13 +96,13 @@ public class EgovWebApplicationInitializer implements WebApplicationInitializer 
 		// -------------------------------------------------------------
 		// Spring ServletContextListener 설정
 		// -------------------------------------------------------------
-		XmlWebApplicationContext xmlWebApplicationContext = new XmlWebApplicationContext();
-		xmlWebApplicationContext.setConfigLocations(new String[] {
-				"/WEB-INF/config/egovframework/springmvc/dispatcher-servlet.xml"
-		});
+		AnnotationConfigWebApplicationContext webApplicationContext = new AnnotationConfigWebApplicationContext();
+		webApplicationContext.register(
+			ContextWebDispatcherServlet.class
+		);
 
 		ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher",
-				new DispatcherServlet(xmlWebApplicationContext));
+				new DispatcherServlet(webApplicationContext));
 		dispatcher.addMapping("*.do");
 		//dispatcher.addMapping("/"); // Facebook OAuth 사용시 변경
 		dispatcher.setLoadOnStartup(1);

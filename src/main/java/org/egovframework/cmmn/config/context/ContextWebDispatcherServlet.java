@@ -60,7 +60,7 @@ public class ContextWebDispatcherServlet extends WebMvcConfigurationSupport {
 	// -------------------------------------------------------------
 	// RequestMappingHandlerMapping 설정 - Interceptor 추가 - localeChangeInterceptor
 	// -------------------------------------------------------------
-	@Bean
+
 	@Override
 	protected void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(localeChangeInterceptor());
